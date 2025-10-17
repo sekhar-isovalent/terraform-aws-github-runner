@@ -118,6 +118,8 @@ variable "multi_runner_config" {
       runner_hook_job_completed               = optional(string, "")
       runner_ec2_tags                         = optional(map(string), {})
       runner_iam_role_managed_policy_arns     = optional(list(string), [])
+      aws_region                              = optional(string, null)
+      aws_partition                           = optional(string, null)
       vpc_id                                  = optional(string, null)
       subnet_ids                              = optional(list(string), null)
       idle_config = optional(list(object({
