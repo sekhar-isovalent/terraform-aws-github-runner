@@ -1,5 +1,6 @@
 resource "aws_ssm_parameter" "runner_config_run_as" {
   name  = "${var.ssm_paths.root}/${var.ssm_paths.config}/run_as"
+  region = var.aws_region
   type  = "String"
   value = var.runner_as_root ? "root" : var.runner_run_as
   tags  = local.tags
@@ -7,6 +8,7 @@ resource "aws_ssm_parameter" "runner_config_run_as" {
 
 resource "aws_ssm_parameter" "runner_agent_mode" {
   name  = "${var.ssm_paths.root}/${var.ssm_paths.config}/agent_mode"
+  region = var.aws_region
   type  = "String"
   value = var.enable_ephemeral_runners ? "ephemeral" : "persistent"
   tags  = local.tags
@@ -14,6 +16,7 @@ resource "aws_ssm_parameter" "runner_agent_mode" {
 
 resource "aws_ssm_parameter" "disable_default_labels" {
   name  = "${var.ssm_paths.root}/${var.ssm_paths.config}/disable_default_labels"
+  region = var.aws_region
   type  = "String"
   value = var.runner_disable_default_labels
   tags  = local.tags
@@ -21,6 +24,7 @@ resource "aws_ssm_parameter" "disable_default_labels" {
 
 resource "aws_ssm_parameter" "jit_config_enabled" {
   name  = "${var.ssm_paths.root}/${var.ssm_paths.config}/enable_jit_config"
+  region = var.aws_region
   type  = "String"
   value = var.enable_jit_config == null ? var.enable_ephemeral_runners : var.enable_jit_config
   tags  = local.tags
@@ -28,6 +32,7 @@ resource "aws_ssm_parameter" "jit_config_enabled" {
 
 resource "aws_ssm_parameter" "runner_enable_cloudwatch" {
   name  = "${var.ssm_paths.root}/${var.ssm_paths.config}/enable_cloudwatch"
+  region = var.aws_region
   type  = "String"
   value = var.enable_cloudwatch_agent
   tags  = local.tags
@@ -35,6 +40,7 @@ resource "aws_ssm_parameter" "runner_enable_cloudwatch" {
 
 resource "aws_ssm_parameter" "token_path" {
   name  = "${var.ssm_paths.root}/${var.ssm_paths.config}/token_path"
+  region = var.aws_region
   type  = "String"
   value = "${var.ssm_paths.root}/${var.ssm_paths.tokens}"
   tags  = local.tags

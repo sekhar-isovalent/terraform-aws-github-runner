@@ -25,6 +25,7 @@ resource "aws_lambda_function" "scale_up" {
   architectures                  = [var.lambda_architecture]
   environment {
     variables = {
+      TARGET_AWS_REGION                        = var.aws_region
       AMI_ID_SSM_PARAMETER_NAME                = var.ami_id_ssm_parameter_name
       DISABLE_RUNNER_AUTOUPDATE                = var.disable_runner_autoupdate
       ENABLE_EPHEMERAL_RUNNERS                 = var.enable_ephemeral_runners

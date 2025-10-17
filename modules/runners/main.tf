@@ -116,6 +116,8 @@ resource "aws_ssm_parameter" "runner_ami_id" {
 resource "aws_launch_template" "runner" {
   name = "${var.prefix}-action-runner"
 
+  region = var.aws_region
+
   dynamic "block_device_mappings" {
     for_each = var.block_device_mappings != null ? var.block_device_mappings : []
     content {
@@ -273,6 +275,7 @@ resource "aws_security_group" "runner_sg" {
   name_prefix = "${var.prefix}-github-actions-runner-sg"
   description = "Github Actions Runner security group"
 
+  region = var.aws_region
   vpc_id = var.vpc_id
 
   ingress = []

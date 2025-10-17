@@ -26,7 +26,7 @@ export async function cleanSSMTokens(options: SSMCleanupOptions): Promise<void> 
   logger.debug('Cleaning with options', { options });
   validateOptions(options);
 
-  const client = getTracedAWSV3Client(new SSMClient({ region: process.env.AWS_REGION }));
+  const client = getTracedAWSV3Client(new SSMClient({ region: process.env.TARGET_AWS_REGION }));
   const parameters = await client.send(new GetParametersByPathCommand({ Path: options.tokenPath }));
   while (parameters.NextToken) {
     const nextParameters = await client.send(

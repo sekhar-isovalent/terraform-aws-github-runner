@@ -60,6 +60,7 @@ module "pool" {
     arn_ssm_parameters_path_config       = local.arn_ssm_parameters_path_config
   }
 
+  aws_region     = var.aws_region
   aws_partition  = var.aws_partition
   tracing_config = var.tracing_config
 }

@@ -69,6 +69,11 @@ variable "config" {
   })
 }
 
+variable "aws_region" {
+  description = "AWS region to deploy resources in."
+  type        = string
+}
+
 variable "aws_partition" {
   description = "(optional) partition for the arn if not 'aws'"
   type        = string
