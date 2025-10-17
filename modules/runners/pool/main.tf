@@ -17,6 +17,7 @@ resource "aws_lambda_function" "pool" {
 
   environment {
     variables = {
+      TARGET_AWS_REGION                        = var.aws_region
       AMI_ID_SSM_PARAMETER_NAME                = var.config.ami_id_ssm_parameter_name
       DISABLE_RUNNER_AUTOUPDATE                = var.config.runner.disable_runner_autoupdate
       ENABLE_EPHEMERAL_RUNNERS                 = var.config.runner.ephemeral

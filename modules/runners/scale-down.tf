@@ -22,6 +22,7 @@ resource "aws_lambda_function" "scale_down" {
 
   environment {
     variables = {
+      TARGET_AWS_REGION                        = var.aws_region
       ENVIRONMENT                              = var.prefix
       ENABLE_METRIC_GITHUB_APP_RATE_LIMIT      = var.metrics.enable && var.metrics.metric.enable_github_app_rate_limit
       GHES_URL                                 = var.ghes_url

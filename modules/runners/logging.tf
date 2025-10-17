@@ -41,6 +41,7 @@ locals {
 
 
 resource "aws_ssm_parameter" "cloudwatch_agent_config_runner" {
+  region =  var.aws_region
   count = var.enable_cloudwatch_agent ? 1 : 0
   name  = "${var.ssm_paths.root}/${var.ssm_paths.config}/cloudwatch_agent_config_runner"
   type  = "String"
@@ -52,6 +53,7 @@ resource "aws_ssm_parameter" "cloudwatch_agent_config_runner" {
 
 resource "aws_cloudwatch_log_group" "gh_runners" {
   count             = length(local.loggroups_names)
+  region            = var.aws_region
   name              = local.loggroups_names[count.index]
   retention_in_days = var.logging_retention_in_days
   kms_key_id        = var.logging_kms_key_id

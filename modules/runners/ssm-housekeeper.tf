@@ -29,6 +29,7 @@ resource "aws_lambda_function" "ssm_housekeeper" {
 
   environment {
     variables = {
+      TARGET_AWS_REGION                        = var.aws_region
       ENVIRONMENT                              = var.prefix
       LOG_LEVEL                                = var.log_level
       SSM_CLEANUP_CONFIG                       = jsonencode(local.ssm_housekeeper.config)
