@@ -3,7 +3,7 @@ import { getTracedAWSV3Client } from '@aws-github-runner/aws-powertools-util';
 import { SSMProvider } from '@aws-lambda-powertools/parameters/ssm';
 
 export async function getParameter(parameter_name: string): Promise<string> {
-  const ssmClient = getTracedAWSV3Client(new SSMClient({ region: process.env.AWS_REGION }));
+  const ssmClient = getTracedAWSV3Client(new SSMClient({ region: process.env.TARGET_AWS_REGION }));
   const client = new SSMProvider({ awsSdkV3Client: ssmClient }); //getTracedAWSV3Client();
   const result = await client.get(parameter_name, {
     decrypt: true,
@@ -25,7 +25,7 @@ export async function putParameter(
   secure: boolean,
   options: { tags?: Tag[] } = {},
 ): Promise<void> {
-  const client = getTracedAWSV3Client(new SSMClient({ region: process.env.AWS_REGION }));
+  const client = getTracedAWSV3Client(new SSMClient({ region: process.env.TARGET_AWS_REGION }));
 
   // Determine tier based on parameter_value size
   const valueSizeBytes = Buffer.byteLength(parameter_value, 'utf8');

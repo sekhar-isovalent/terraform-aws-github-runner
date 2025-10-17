@@ -65,6 +65,20 @@ variable "multi_runner_config" {
         http_tokens                 = "required"
         http_put_response_hop_limit = 1
       })
+      github_app = optional(object({
+        id = optional(object({
+          arn  = string
+          name = string
+        }))
+        key_base64= optional(object({
+          arn  = string
+          name = string
+        }))
+        webhook_secret= optional(object({
+          arn  = string
+          name = string
+        }))
+      }), null)
       ami = optional(object({
         filter               = optional(map(list(string)), { state = ["available"] })
         owners               = optional(list(string), ["amazon"])
@@ -118,6 +132,7 @@ variable "multi_runner_config" {
       runner_hook_job_completed               = optional(string, "")
       runner_ec2_tags                         = optional(map(string), {})
       runner_iam_role_managed_policy_arns     = optional(list(string), [])
+      region                                  = optional(string, null)
       vpc_id                                  = optional(string, null)
       subnet_ids                              = optional(list(string), null)
       idle_config = optional(list(object({

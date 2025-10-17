@@ -1,7 +1,7 @@
 module "runners" {
   source        = "../runners"
   for_each      = local.runner_config
-  aws_region    = var.aws_region
+  aws_region    = coalesce(each.value.runner_config.region, var.aws_region)
   aws_partition = var.aws_partition
   vpc_id        = coalesce(each.value.runner_config.vpc_id, var.vpc_id)
   subnet_ids    = coalesce(each.value.runner_config.subnet_ids, var.subnet_ids)
@@ -32,7 +32,7 @@ module "runners" {
   ami_kms_key_arn     = each.value.runner_config.ami_kms_key_arn
 
   sqs_build_queue                      = { "arn" : each.value.arn, "url" : each.value.url }
-  github_app_parameters                = local.github_app_parameters
+  github_app_parameters                = coalesce(each.value.runner_config.github_app, local.github_app_parameters)
   ebs_optimized                        = each.value.runner_config.ebs_optimized
   enable_on_demand_failover_for_errors = each.value.runner_config.enable_on_demand_failover_for_errors
   enable_organization_runners          = each.value.runner_config.enable_organization_runners
