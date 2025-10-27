@@ -3,6 +3,8 @@ module "ami_housekeeper" {
   count  = var.enable_ami_housekeeper ? 1 : 0
   source = "../ami-housekeeper"
 
+  aws_region    = var.aws_region
+
   prefix        = var.prefix
   tags          = local.tags
   aws_partition = var.aws_partition
