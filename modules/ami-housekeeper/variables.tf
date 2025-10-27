@@ -72,6 +72,11 @@ variable "aws_partition" {
   default     = "aws"
 }
 
+variable "aws_region" {
+  description = "AWS region where the resources will be created."
+  type        = string
+}
+
 variable "log_level" {
   description = "Logging level for lambda logging. Valid values are  'silly', 'trace', 'debug', 'info', 'warn', 'error', 'fatal'."
   type        = string

@@ -4,6 +4,7 @@ locals {
 }
 
 resource "aws_lambda_function" "ami_housekeeper" {
+  region = var.aws_region
   s3_bucket         = var.lambda_s3_bucket != null ? var.lambda_s3_bucket : null
   s3_key            = var.lambda_s3_key != null ? var.lambda_s3_key : null
   s3_object_version = var.lambda_s3_object_version != null ? var.lambda_s3_object_version : null
@@ -48,6 +49,7 @@ resource "aws_lambda_function" "ami_housekeeper" {
 }
 
 resource "aws_cloudwatch_log_group" "ami_housekeeper" {
+  region = var.aws_region
   name              = "/aws/lambda/${aws_lambda_function.ami_housekeeper.function_name}"
   retention_in_days = var.logging_retention_in_days
   kms_key_id        = var.logging_kms_key_id
@@ -100,6 +102,7 @@ resource "aws_iam_role_policy" "ami_housekeeper" {
 }
 
 resource "aws_cloudwatch_event_rule" "ami_housekeeper" {
+  region = var.aws_region
   name                = "${var.prefix}-ami-housekeeper"
   schedule_expression = var.lambda_schedule_expression
   tags                = var.tags
@@ -107,6 +110,7 @@ resource "aws_cloudwatch_event_rule" "ami_housekeeper" {
 }
 
 resource "aws_cloudwatch_event_target" "ami_housekeeper" {
+  region = var.aws_region
   rule = aws_cloudwatch_event_rule.ami_housekeeper.name
   arn  = aws_lambda_function.ami_housekeeper.arn
 }
@@ -118,6 +122,7 @@ resource "aws_iam_role_policy_attachment" "ami_housekeeper_vpc_execution_role" {
 }
 
 resource "aws_lambda_permission" "ami_housekeeper" {
+  region = var.aws_region
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.ami_housekeeper.function_name
