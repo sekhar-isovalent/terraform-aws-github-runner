@@ -78,7 +78,7 @@ variable "multi_runner_config" {
           arn  = string
           name = string
         }))
-      }), {})
+      }), null)
       ami = optional(object({
         filter               = optional(map(list(string)), { state = ["available"] })
         owners               = optional(list(string), ["amazon"])

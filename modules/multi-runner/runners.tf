@@ -32,7 +32,7 @@ module "runners" {
   ami_kms_key_arn     = each.value.runner_config.ami_kms_key_arn
 
   sqs_build_queue                      = { "arn" : each.value.arn, "url" : each.value.url }
-  github_app_parameters                = each.value.runner_config.github_app != null ? each.value.runner_config.github_app : local.github_app_parameters
+  github_app_parameters                = coalesce(each.value.runner_config.github_app, local.github_app_parameters)
   ebs_optimized                        = each.value.runner_config.ebs_optimized
   enable_on_demand_failover_for_errors = each.value.runner_config.enable_on_demand_failover_for_errors
   enable_organization_runners          = each.value.runner_config.enable_organization_runners
