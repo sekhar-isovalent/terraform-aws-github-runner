@@ -1,10 +1,10 @@
 module "pool" {
-  count = length(var.pool_config) == 0 ? 0 : 1
+  for_each = !var.enable_organization_runners  && length(var.repository_white_list) > 0 ? toset(var.repository_white_list) : toset([var.pool_runner_owner])
 
   source = "./pool"
 
   config = {
-    prefix = var.prefix
+    prefix = "${var.prefix}-${each.key}"
     ghes = {
       ssl_verify = var.ghes_ssl_verify
       url        = var.ghes_url
@@ -48,6 +48,7 @@ module "pool" {
       group_name                           = var.runner_group_name
       name_prefix                          = var.runner_name_prefix
       pool_owner                           = var.pool_runner_owner
+      pool_repository                      = !var.enable_organization_runners && length(var.repository_white_list) > 0 ? each.key : null
       role                                 = aws_iam_role.runner
     }
     subnet_ids                           = var.subnet_ids

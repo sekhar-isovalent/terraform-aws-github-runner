@@ -177,6 +177,7 @@ variable "multi_runner_config" {
         lambda_timeout     = optional(number, 30)
         max_attempts       = optional(number, 1)
       }), {})
+      repository_white_list = optional(list(string), [])
     })
     matcherConfig = object({
       labelMatchers = list(list(string))

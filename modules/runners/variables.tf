@@ -770,3 +770,9 @@ variable "user_agent" {
   type        = string
   default     = null
 }
+
+variable "repository_white_list" {
+  description = "List of allowed repositories for organization level runners. If the list is empty or not set, the runners will be allowed to run jobs from all repositories in the organization."
+  type        = list(string)
+  default     = []
+}

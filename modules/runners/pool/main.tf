@@ -40,6 +40,7 @@ resource "aws_lambda_function" "pool" {
       RUNNER_GROUP_NAME                        = var.config.runner.group_name
       RUNNER_NAME_PREFIX                       = var.config.runner.name_prefix
       RUNNER_OWNER                             = var.config.runner.pool_owner
+      RUNNER_REPOSITORY                        = var.config.runner.pool_repository
       SSM_TOKEN_PATH                           = var.config.ssm_token_path
       SSM_CONFIG_PATH                          = var.config.ssm_config_path
       SUBNET_IDS                               = join(",", var.config.subnet_ids)
@@ -153,7 +154,7 @@ resource "aws_iam_role_policy" "pool_xray" {
 }
 
 resource "aws_scheduler_schedule_group" "pool" {
-  name_prefix = "${var.config.prefix}-pool"
+  name = "${var.config.prefix}-pool"
 
   tags = var.config.tags
 }
@@ -184,7 +185,7 @@ data "aws_iam_policy_document" "scheduler" {
 }
 
 resource "aws_iam_role" "scheduler" {
-  name_prefix = "${var.config.prefix}-pool"
+  name = "${var.config.prefix}-pool"
 
   path                 = var.config.role_path
   permissions_boundary = var.config.role_permissions_boundary

@@ -80,6 +80,7 @@ module "runners" {
   runner_log_files                 = each.value.runner_config.runner_log_files
   runner_group_name                = each.value.runner_config.runner_group_name
   runner_name_prefix               = each.value.runner_config.runner_name_prefix
+  repository_white_list            = each.value.runner_config.repository_white_list
 
   scale_up_reserved_concurrent_executions = each.value.runner_config.scale_up_reserved_concurrent_executions
 
